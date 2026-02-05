@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath: "/todoMemoApp202602_ver_nextjs",
+  /* config options here */
 };
 
 export default nextConfig;
