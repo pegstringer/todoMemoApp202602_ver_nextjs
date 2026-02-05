@@ -1,0 +1,2 @@
+# todoMemoApp202602_ver_nextjs
+平川さんの本で作るToDoメモアプリのNextJS版チャレンジ
