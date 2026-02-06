@@ -1,6 +1,7 @@
 "use client";
 
 import { FilterType } from "@/types/todo";
+import { playSfxFilter } from "@/utils/soundEffects";
 
 type Props = {
   current: FilterType;
@@ -19,7 +20,10 @@ export function TodoFilter({ current, onChange }: Props) {
       {filters.map(({ value, label }) => (
         <button
           key={value}
-          onClick={() => onChange(value)}
+          onClick={() => {
+            playSfxFilter(value);
+            onChange(value);
+          }}
           className="rounded-xl px-4 py-1.5 text-sm font-medium transition-colors"
           style={
             current === value

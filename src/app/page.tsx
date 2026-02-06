@@ -1,9 +1,11 @@
 "use client";
 
 import { useTodos } from "@/hooks/useTodos";
+import { useAudio } from "@/hooks/useAudio";
 import { TodoForm } from "@/components/TodoForm";
 import { TodoFilter } from "@/components/TodoFilter";
 import { TodoList } from "@/components/TodoList";
+import { AudioControls } from "@/components/AudioControls";
 
 export default function Home() {
   const {
@@ -16,6 +18,14 @@ export default function Home() {
     updateMemo,
     isLoaded,
   } = useTodos();
+
+  const {
+    muted,
+    bgmEnabled,
+    initialized,
+    toggleMute,
+    toggleBgm,
+  } = useAudio();
 
   return (
     <div className="min-h-screen" style={{ background: "var(--background)" }}>
@@ -57,6 +67,14 @@ export default function Home() {
           />
         )}
       </div>
+
+      <AudioControls
+        muted={muted}
+        bgmEnabled={bgmEnabled}
+        initialized={initialized}
+        onToggleMute={toggleMute}
+        onToggleBgm={toggleBgm}
+      />
     </div>
   );
 }

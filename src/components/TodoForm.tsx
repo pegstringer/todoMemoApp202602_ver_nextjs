@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { playSfxAdd } from "@/utils/soundEffects";
 
 type Props = {
   onAdd: (title: string, memo: string) => void;
@@ -15,6 +16,7 @@ export function TodoForm({ onAdd }: Props) {
     const trimmedTitle = title.trim();
     if (!trimmedTitle) return;
     onAdd(trimmedTitle, memo.trim());
+    playSfxAdd();
     setTitle("");
     setMemo("");
   };

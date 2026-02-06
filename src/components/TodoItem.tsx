@@ -2,6 +2,13 @@
 
 import { useState } from "react";
 import { Todo } from "@/types/todo";
+import {
+  playSfxComplete,
+  playSfxUncomplete,
+  playSfxDelete,
+  playSfxToggleMemo,
+  playSfxSaveMemo,
+} from "@/utils/soundEffects";
 
 type Props = {
   todo: Todo;
@@ -16,6 +23,7 @@ export function TodoItem({ todo, onToggle, onDelete, onUpdateMemo }: Props) {
 
   const handleSaveMemo = () => {
     onUpdateMemo(todo.id, memoText);
+    playSfxSaveMemo();
     setIsEditingMemo(false);
   };
 
@@ -37,7 +45,11 @@ export function TodoItem({ todo, onToggle, onDelete, onUpdateMemo }: Props) {
           <input
             type="checkbox"
             checked={todo.completed}
-            onChange={() => onToggle(todo.id)}
+            onChange={() => {
+              onToggle(todo.id);
+              if (todo.completed) playSfxUncomplete();
+              else playSfxComplete();
+            }}
             className="sr-only"
           />
           <span
@@ -130,7 +142,10 @@ export function TodoItem({ todo, onToggle, onDelete, onUpdateMemo }: Props) {
                 </p>
               )}
               <button
-                onClick={() => setIsEditingMemo(true)}
+                onClick={() => {
+                  playSfxToggleMemo();
+                  setIsEditingMemo(true);
+                }}
                 className="mt-1 text-xs transition-colors"
                 style={{ color: "var(--accent)" }}
                 onMouseEnter={(e) =>
@@ -147,7 +162,10 @@ export function TodoItem({ todo, onToggle, onDelete, onUpdateMemo }: Props) {
         </div>
 
         <button
-          onClick={() => onDelete(todo.id)}
+          onClick={() => {
+            playSfxDelete();
+            onDelete(todo.id);
+          }}
           className="shrink-0 rounded-lg p-1.5 transition-colors"
           style={{ color: "var(--text-muted)" }}
           aria-label="削除"
